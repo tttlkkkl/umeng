@@ -12,12 +12,12 @@ func TestUmeng_Push(t *testing.T) {
 	iosToken := "562007df7aaae45cdbe4e7ab3d5231be48086ecdd5fabfb6c7764b2d42e87ccb"
 	androidToken := "Al78vkl6LWLwQse9vuKSXqeKDHdjkQM_X8hUqEM0UNr5"
 	iosApp := App{
-		AppKey:          "5b863e33f43e4823980000b8",
-		AppMasterSecret: "yprunb65i9tf9uh2nsuoztsbpqb25lpq",
+		AppKey:          "yyyyy",
+		AppMasterSecret: "yyyyyyyy",
 	}
 	androidApp := App{
-		AppKey:          "5bce8936b465f56724000151",
-		AppMasterSecret: "xngughaew6bvrvly5jzknnj4zwfsmorl",
+		AppKey:          "xxx",
+		AppMasterSecret: "xxxxxx",
 	}
 	umeng := NewUmeng(&Options{
 		IosApp:     iosApp,
