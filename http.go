@@ -6,9 +6,10 @@ import (
 	"crypto/tls"
 	"errors"
 	"fmt"
-	"github.com/json-iterator/go"
 	"io/ioutil"
 	"net/http"
+
+	jsoniter "github.com/json-iterator/go"
 )
 
 // 替换原生 json 解码库
@@ -20,6 +21,15 @@ const (
 	//HTTPSSendURL https 协议发送地址
 	HTTPSSendURL = "https://msgapi.umeng.com/api/send"
 )
+
+var httpClient *http.Client
+
+func init() {
+	tr := &http.Transport{
+		TLSClientConfig: &tls.Config{InsecureSkipVerify: true},
+	}
+	httpClient = &http.Client{Transport: tr}
+}
 
 type body struct {
 	AppKey         string `json:"appkey"`
@@ -52,15 +62,10 @@ func (u *Umeng) Push(r Requester) (*Response, error) {
 	if err != nil {
 		return nil, err
 	}
-	fmt.Println(string(httpBody))
-	tr := &http.Transport{
-		TLSClientConfig: &tls.Config{InsecureSkipVerify: true},
-	}
-	client := &http.Client{Transport: tr}
 	signStr := "POST" + u.getURL() + string(httpBody) + appMasterSecret
 	sign := fmt.Sprintf("%x", md5.Sum([]byte(signStr)))
 	bufReader := bytes.NewReader(httpBody)
-	resp, err := client.Post(u.getFullURL(sign), "application/json", bufReader)
+	resp, err := httpClient.Post(u.getFullURL(sign), "application/json", bufReader)
 	if err != nil {
 		return nil, err
 	}

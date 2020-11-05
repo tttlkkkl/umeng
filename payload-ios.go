@@ -1,10 +1,10 @@
 package umeng
 
+// IosPayload ios 消息
 // type IosPayload struct {
 // 	Apps IosApps `json:"aps"`
 // 	Kv
 // }
-// IosPayload ios 消息
 type IosPayload map[string]interface{}
 
 // IosApps APNs 消息结构
