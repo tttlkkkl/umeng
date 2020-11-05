@@ -69,9 +69,7 @@ func (u *Umeng) Push(r Requester) (*Response, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer func() {
-		resp.Body.Close()
-	}()
+	defer resp.Body.Close()
 	content, err := ioutil.ReadAll(resp.Body)
 	if err != nil {
 		return nil, err
